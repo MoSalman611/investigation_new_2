@@ -4,7 +4,7 @@ from config import config
 
 def copy_from_csv(conn, cursor, table_name, csv_file_path):
     #Open the csv file
-    with open(r'C:\investigation_project_v2-master\homicide_news_data.csv', 'r', encoding='ISO-8859-1') as file:
+    with open(r'C:/Users/syedk/Documents/updated_investigation_project/investigation_new_2/investigation_project_v2-master/homicide_news_data.csv', 'r', encoding='ISO-8859-1') as file:
         #copy data from the csv file to the table
         cursor.execute('SET datestyle = "ISO, DMY";')
         cursor.copy_expert("""COPY homicide_news (news_report_url,
@@ -52,8 +52,7 @@ def connect():
         
         create_script_homicide = '''CREATE TABLE homicide_news (
                             article_id SERIAL PRIMARY KEY,
-                            news_report_id UUID DEFAULT uuid_generate_v4(), 
-                            news_report_url VARCHAR(255) UNIQUE,
+                            news_report_url VARCHAR(255),
                             news_report_headline VARCHAR(255),
                             news_report_platform VARCHAR(255),
                             date_of_publication DATE,
@@ -74,14 +73,14 @@ def connect():
                             perpetrator_relationship_to_victim VARCHAR(255),
                             suspect_arrested VARCHAR(255),
                             suspect_convicted VARCHAR(255),
-                            multiple_murder BOOLEAN,
+                            multiple_murder VARCHAR(10),
                             intimate_femicide_y_n_u VARCHAR(10),
                             extreme_violence_y_n_m_u VARCHAR(10),
                             notes VARCHAR(1000)
                             )'''                   
         csr.execute(create_script_homicide)
         print("homicide_news Table created successfully in public")
-        copy_from_csv(connection, csr, 'homicide_news_data', r'C:\investigation_project_v2\homicide_news_data.csv')
+        copy_from_csv(connection, csr, 'homicide_news_data', r'C:/Users/syedk/Documents/updated_investigation_project/investigation_new_2/investigation_project_v2-master/homicide_news_data.csv')
         
         
         connection.commit()
